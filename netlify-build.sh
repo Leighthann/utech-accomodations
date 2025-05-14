@@ -1,7 +1,11 @@
 #!/bin/bash
 
-# Set memory limits
-export NODE_OPTIONS="--max-old-space-size=2048"
+# Verify Node.js version
+node_version=$(node -v)
+echo "Using Node.js version: $node_version"
+
+# Set memory limits but allow more for Node 18
+export NODE_OPTIONS="--max-old-space-size=3072"
 
 # Clean up any previous build artifacts
 echo "Cleaning previous build artifacts..."
@@ -16,5 +20,10 @@ npm install --no-audit --no-fund --legacy-peer-deps
 echo "Building the application..."
 npm run build
 
-# Success message
-echo "Build completed successfully!" 
+# Check if .next directory exists
+if [ ! -d ".next" ]; then
+  echo "ERROR: .next directory was not created by the build process!"
+  exit 1
+else
+  echo "Build completed successfully!"
+fi 
