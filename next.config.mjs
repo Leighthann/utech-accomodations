@@ -12,24 +12,30 @@ const nextConfig = {
   },
   // Disable source maps in production to reduce memory usage
   productionBrowserSourceMaps: false,
-  // Reduce bundle size
-  swcMinify: true,
-  // Disable experimental features to save memory
+  // Optimize CSS and package imports
   experimental: {
+    optimizeCss: false, // Disable CSS optimization for now
     optimizePackageImports: ['@radix-ui/react-*', 'lucide-react'],
   },
-  // Minimal webpack config to save memory
-  webpack: (config, { dev }) => {
-    // Optimize for memory usage over speed
+  // Add webpack optimizations
+  webpack: (config, { dev, isServer }) => {
+    // Optimize memory usage
     config.optimization = {
       ...config.optimization,
+      moduleIds: 'deterministic',
+      chunkIds: 'deterministic',
       minimize: !dev,
+    }
+
+    // Increase memory limit for webpack
+    config.performance = {
+      ...config.performance,
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000,
     }
 
     return config
   },
-  // This is important for static export
-  output: 'export',
 }
 
 export default nextConfig
