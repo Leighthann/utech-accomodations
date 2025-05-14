@@ -1,14 +1,16 @@
 [build]
-  command = "npm run build"
+  command = "NODE_OPTIONS='--max-old-space-size=4096' npm run build"
   publish = ".next"
 
 [build.environment]
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
+  NODE_VERSION = "18"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200 
+# Remove the redirect as it might be causing issues with Next.js routing
+# [[redirects]]
+#   from = "/*"
+#   to = "/index.html"
+#   status = 200 
