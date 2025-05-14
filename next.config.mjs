@@ -12,6 +12,8 @@ const nextConfig = {
   },
   // Disable source maps in production to reduce memory usage
   productionBrowserSourceMaps: false,
+
+  swcMinify: true, // Use SWC for minification which is more memory efficient
   // Optimize CSS and package imports
   experimental: {
     optimizeCss: false, // Disable CSS optimization for now
