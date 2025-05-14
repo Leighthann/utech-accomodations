@@ -10,6 +10,7 @@ export NODE_OPTIONS="--max-old-space-size=3072"
 # Clean up any previous build artifacts
 echo "Cleaning previous build artifacts..."
 rm -rf .next || true
+rm -rf out || true
 rm -rf node_modules/.cache || true
 
 # Install dependencies with legacy peer deps
@@ -20,10 +21,10 @@ npm install --no-audit --no-fund --legacy-peer-deps
 echo "Building the application..."
 npm run build
 
-# Check if .next directory exists
-if [ ! -d ".next" ]; then
-  echo "ERROR: .next directory was not created by the build process!"
+# Check if out directory exists
+if [ ! -d "out" ]; then
+  echo "ERROR: 'out' directory was not created by the build process!"
   exit 1
 else
-  echo "Build completed successfully!"
+  echo "Build completed successfully! Static files are in the 'out' directory."
 fi 

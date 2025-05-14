@@ -19,7 +19,7 @@ const nextConfig = {
     optimizePackageImports: ['@radix-ui/react-*', 'lucide-react'],
   },
   // Minimal webpack config to save memory
-  webpack: (config, { dev, isServer }) => {
+  webpack: (config, { dev }) => {
     // Optimize for memory usage over speed
     config.optimization = {
       ...config.optimization,
@@ -28,6 +28,8 @@ const nextConfig = {
 
     return config
   },
+  // This is important for static export
+  output: 'export',
 }
 
 export default nextConfig
